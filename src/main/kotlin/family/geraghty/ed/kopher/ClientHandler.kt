@@ -18,6 +18,7 @@ class ClientHandler(private val client: Socket) {
                 client.close()
             }
 
+            // DirEntity ::= Type User_Name Tab Selector Tab Host Tab Port CR-LF
             val dirEntity = selectorString.split('\t')
             write("Hello") // TODO
         }
