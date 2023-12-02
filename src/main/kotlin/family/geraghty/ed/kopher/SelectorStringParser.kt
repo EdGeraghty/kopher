@@ -11,6 +11,10 @@ class SelectorStringParser (var baseDir: String) {
     }
 
     private fun parseWithThrows(selectorString: String) : String {
+        if (selectorString.length > 255) {
+            throw Exception("The Selector string should be no longer than 255 characters.")
+        }
+
         return "TODO, lol"
     }
 }
