@@ -36,14 +36,14 @@ class SelectorStringParserTest {
         val result = parser.parse("\r\n")
 
         assertEquals(
-                "0About internet Gopher Stuff:About us  rawBits.micro.umn.edu   70\r\n" +
-                "1Around University of Minnesota    Z,5692,AUM underdog.micro.umn.edu  70\r\n" +
-                "1Microcomputer News & Prices   Prices/ pserver.bookstore.umn.edu   70\r\n" +
-                "1Courses, Schedules, Calendars     events.ais.umn.edu 9120\r\n" +
-                "1Student-Staff Directories     uinfo.ais.umn.edu  70\r\n" +
-                "1Departmental Publications Stuff:DP:   rawBits.micro.umn.edu   70\r\n" +
-                ".",
-                result
+            "0About internet Gopher Stuff:About us  rawBits.micro.umn.edu   70\r\n" +
+            "1Around University of Minnesota    Z,5692,AUM underdog.micro.umn.edu  70\r\n" +
+            "1Microcomputer News & Prices   Prices/ pserver.bookstore.umn.edu   70\r\n" +
+            "1Courses, Schedules, Calendars     events.ais.umn.edu 9120\r\n" +
+            "1Student-Staff Directories     uinfo.ais.umn.edu  70\r\n" +
+            "1Departmental Publications Stuff:DP:   rawBits.micro.umn.edu   70\r\n" +
+            ".",
+            result
         )
     }
 
