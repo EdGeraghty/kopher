@@ -14,7 +14,6 @@ class SelectorStringParserTest {
      *    later) listens at a well known port for the campus (much like a
      *    domain-name server).
      *    [...]
-     *    In the example below the F character denotes the TAB character.
      *
      *  Client:          {Opens connection to Server}
      *
@@ -23,12 +22,12 @@ class SelectorStringParserTest {
      *  Client: <CR><LF> {Sends an empty line: Meaning "list what you have"}
      *
      *  Server:          {Sends a series of lines, each ending with CR LF}
-     *  0About internet GopherFStuff:About usFrawBits.micro.umn.eduF70
-     *  1Around University of MinnesotaFZ,5692,AUMFunderdog.micro.umn.eduF70
-     *  1Microcomputer News & PricesFPrices/Fpserver.bookstore.umn.eduF70
-     *  1Courses, Schedules, CalendarsFFevents.ais.umn.eduF9120
-     *  1Student-Staff DirectoriesFFuinfo.ais.umn.eduF70
-     *  1Departmental PublicationsFStuff:DP:FrawBits.micro.umn.eduF70
+     *  0About internet Gopher  Stuff:About us  rawBits.micro.umn.edu   70
+     *  1Around University of Minnesota Z,5692,AUM  underdog.micro.umn.edu   70
+     *  1Microcomputer News & Prices    Prices/    pserver.bookstore.umn.edu  70
+     *  1Courses, Schedules, Calendars      events.ais.umn.edu  9120
+     *  1Student-Staff Directories      uinfo.ais.umn.edu   70
+     *  1Departmental Publications  Stuff:DP:   rawBits.micro.umn.edu   70
      *                     {.....etc.....}
      *  .                  {Period on a line by itself}
      *                     {Server closes connection}
@@ -39,12 +38,12 @@ class SelectorStringParserTest {
         val result = parser.parse("\r\n")
 
         assertEquals(
-                "0About internet GopherFStuff:About usFrawBits.micro.umn.eduF70\r\n" +
-                "1Around University of MinnesotaFZ,5692,AUMFunderdog.micro.umn.eduF70\r\n" +
-                "1Microcomputer News & PricesFPrices/Fpserver.bookstore.umn.eduF70\r\n" +
-                "1Courses, Schedules, CalendarsFFevents.ais.umn.eduF9120\r\n" +
-                "1Student-Staff DirectoriesFFuinfo.ais.umn.eduF70\r\n" +
-                "1Departmental PublicationsFStuff:DP:FrawBits.micro.umn.eduF70\r\n" +
+                "0About internet Gopher Stuff:About us  rawBits.micro.umn.edu   70\r\n" +
+                "1Around University of Minnesota    Z,5692,AUM underdog.micro.umn.edu  70\r\n" +
+                "1Microcomputer News & Prices   Prices/ pserver.bookstore.umn.edu   70\r\n" +
+                "1Courses, Schedules, Calendars     events.ais.umn.edu 9120\r\n" +
+                "1Student-Staff Directories     uinfo.ais.umn.edu  70\r\n" +
+                "1Departmental Publications Stuff:DP:   rawBits.micro.umn.edu   70\r\n" +
                 ".",
             result)
     }
