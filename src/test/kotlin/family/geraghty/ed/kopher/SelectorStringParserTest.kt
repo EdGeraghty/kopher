@@ -58,7 +58,7 @@ class SelectorStringParserTest {
      */
     @Test
     fun `The Selector string should be no longer than 255 characters`() {
-        val parser = SelectorStringParser(baseDir="resources/files")
+        val parser = SelectorStringParser("src/test/resources")
         val randomStringWhichIsTooLong =
             (1..256).map{
                 (0..1).random()
