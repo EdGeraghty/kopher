@@ -32,7 +32,7 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Sends an empty line meaning list what you have`() {
-        val parser = SelectorStringParser(baseDir="resources/files")
+        val parser = SelectorStringParser("src/test/resources")
         val result = parser.parse("\r\n")
 
         assertEquals(
