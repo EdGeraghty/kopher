@@ -5,7 +5,7 @@ class SelectorStringParser (private var baseDir: String) {
         return try {
             parseWithThrows(selectorString)
         } catch (e: Exception) {
-            "3" + e.message + "\r\n" +
+            ItemType.ERROR.itemChar.toString() + e.message + "\r\n" +
             "."
         }
     }
