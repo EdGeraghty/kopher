@@ -43,7 +43,8 @@ class SelectorStringParserTest {
                 "1Student-Staff Directories     uinfo.ais.umn.edu  70\r\n" +
                 "1Departmental Publications Stuff:DP:   rawBits.micro.umn.edu   70\r\n" +
                 ".",
-            result)
+                result
+        )
     }
 
     /**
