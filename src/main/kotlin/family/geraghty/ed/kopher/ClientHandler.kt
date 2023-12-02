@@ -11,15 +11,11 @@ class ClientHandler(private val client: Socket, private val baseDir: String) {
 
     fun run() {
         client.use { client ->
-            try {
-                val parser = SelectorStringParser(baseDir)
-                write(parser.parse(reader.nextLine()))
-            }
+            val parser = SelectorStringParser(baseDir)
+
+            write(parser.parse(reader.nextLine()))
             //https://www.i-programmer.info/programming/108-other-languages/11199-the-programmers-guide-to-kotlin-data-classes.html
-            catch (e: Exception) {}
-            finally {
-                client.close()
-            }
+            client.close()
         }
     }
 
