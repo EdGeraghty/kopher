@@ -28,9 +28,7 @@ class SelectorStringParserTest {
      *  1Courses, Schedules, Calendars      events.ais.umn.edu  9120
      *  1Student-Staff Directories      uinfo.ais.umn.edu   70
      *  1Departmental Publications  Stuff:DP:   rawBits.micro.umn.edu   70
-     *                     {.....etc.....}
      *  .                  {Period on a line by itself}
-     *                     {Server closes connection}
      */
     @Test
     fun `Sends an empty line meaning list what you have`() {
