@@ -2,6 +2,7 @@ package family.geraghty.ed.kopher
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.util.Random
 
 class SelectorStringParserTest {
 
@@ -47,5 +48,32 @@ class SelectorStringParserTest {
                 "1Departmental PublicationsFStuff:DP:FrawBits.micro.umn.eduF70\r\n" +
                 ".",
             result)
+    }
+
+    /**
+     * Test adapted from https://datatracker.ietf.org/doc/html/rfc1436 Appendix Notes, the interaction from https://datatracker.ietf.org/doc/html/rfc1436#section-2
+     *
+     *    The Selector string should be no longer than 255 characters.
+     *
+     *    [...]
+     *
+     *    3 indicates an error
+     */
+    @Test
+    fun `The Selector string should be no longer than 255 characters`() {
+        val parser = SelectorStringParser(baseDir="resources/files")
+        val randomStringWhichIsTooLong =
+            (1..256).map{
+                (0..1).random()
+            }
+            .joinToString("")
+
+        val result = parser.parse(randomStringWhichIsTooLong)
+
+        assertEquals(
+            result,
+            "3The Selector string should be no longer than 255 characters.\r\n" +
+            "."
+        )
     }
 }
