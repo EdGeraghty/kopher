@@ -1,6 +1,6 @@
 package family.geraghty.ed.kopher
 
-class SelectorStringParser (var baseDir: String) {
+class SelectorStringParser (private var baseDir: String) {
     fun parse(selectorString: String) : String {
         return try {
             parseWithThrows(selectorString)
