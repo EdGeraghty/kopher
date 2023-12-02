@@ -15,6 +15,6 @@ class SelectorStringParser (var baseDir: String) {
             throw Exception("The Selector string should be no longer than 255 characters.")
         }
 
-        return "TODO, lol"
+        throw Exception("To be implemented")
     }
 }
