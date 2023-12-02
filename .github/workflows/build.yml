@@ -17,7 +17,7 @@
         - name: Set up JDK 18
           uses: actions/setup-java@v1
           with:
-            java-version: 18
+            java-version: 21
         - name: Cache Gradle packages
           uses: actions/cache@v1
           with:
