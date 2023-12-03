@@ -64,9 +64,9 @@ class SelectorStringParserTest {
         val result = parser.parse(randomStringWhichIsTooLong)
 
         assertEquals(
-            result,
             "3The Selector string should be no longer than 255 characters.\r\n" +
-            "."
+            ".",
+            result
         )
     }
 }
