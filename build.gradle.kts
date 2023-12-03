@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
 }
 
 tasks.test {
