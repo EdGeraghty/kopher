@@ -1,7 +1,7 @@
 [
   {
     "user_name": "About internet Gopher",
-    "selector_string": "Stuff: About us",
+    "selector_string": "Stuff:About us",
     "real_path": "Stuff/About us",
     "host": "test.kopher.lol",
     "port": 70
