@@ -5,22 +5,15 @@ import java.net.Socket
 import java.nio.charset.Charset
 import java.util.*
 
-class ClientHandler(private val client: Socket) {
+class ClientHandler(private val client: Socket, private val baseDir: String) {
     private val reader: Scanner = Scanner(client.getInputStream())
     private val writer: OutputStream = client.getOutputStream()
 
     fun run() {
         client.use { client ->
-            val selectorString = reader.nextLine()
-
-            // The Selector string should be no longer than 255 characters.
-            if (selectorString.length > 255) {
-                client.close()
-            }
-
-            // DirEntity ::= Type User_Name Tab Selector Tab Host Tab Port CR-LF
-            val dirEntity = selectorString.split('\t')
-            write("Hello") // TODO
+            val parser = SelectorStringParser(baseDir)
+            write(parser.parse(reader.nextLine()))
+            client.close()
         }
     }
 
