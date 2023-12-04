@@ -5,13 +5,13 @@ import java.net.Socket
 import java.nio.charset.Charset
 import java.util.*
 
-class ClientHandler(private val client: Socket, private val baseDir: String) {
+class ClientHandler(private val client: Socket, private val directoryListingJson: String) {
     private val reader: Scanner = Scanner(client.getInputStream())
     private val writer: OutputStream = client.getOutputStream()
 
     fun run() {
         client.use { client ->
-            val parser = SelectorStringParser(baseDir)
+            val parser = SelectorStringParser(directoryListingJson)
             write(parser.parse(reader.nextLine()))
             client.close()
         }
