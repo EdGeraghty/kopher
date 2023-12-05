@@ -4,6 +4,54 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class SelectorStringParserTest {
+    private val directoryListingJson = """
+        [
+          {
+            "item_type": "0",
+            "user_name": "About internet Gopher",
+            "selector_string": "Stuff:About us",
+            "real_path": "Stuff/About us",
+            "host": "test.kopher.lol",
+            "port": 70
+          },
+          {
+            "item_type": "1",
+            "user_name": "Around University of Minnesota",
+            "selector_string": "Z,5692,AUM",
+            "host": "underdog.micro.umn.edu",
+            "port": 70
+          },
+          {
+            "item_type": "1",
+            "user_name": "Microcomputer News & Prices",
+            "selector_string": "Prices/",
+            "host": "pserver.bookstore.umn.edu",
+            "port": 70
+          },
+          {
+            "item_type": "1",
+            "user_name": "Courses, Schedules, Calendars",
+            "selector_string": "",
+            "host": "events.ais.umn.edu",
+            "port": 9120
+          },
+          {
+            "item_type": "1",
+            "user_name": "Student-Staff Directories",
+            "selector_string": "",
+            "host": "uinfo.ais.umn.edu",
+            "port": 70
+          },
+          {
+            "item_type": "1",
+            "user_name": "Departmental Publications",
+            "selector_string": "Stuff:DP:",
+            "real_path": "Stuff/DP/",
+            "host": "test.kopher.lol",
+            "port": 70
+          }
+        ]
+    """.trimIndent()
 
     /**
      * Test adapted from https://datatracker.ietf.org/doc/html/rfc1436#section-2
@@ -28,55 +76,6 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Sends an empty line meaning list what you have`() {
-        val directoryListingJson = """
-            [
-              {
-                "item_type": "0",
-                "user_name": "About internet Gopher",
-                "selector_string": "Stuff:About us",
-                "real_path": "Stuff/About us",
-                "host": "test.kopher.lol",
-                "port": 70
-              },
-              {
-                "item_type": "1",
-                "user_name": "Around University of Minnesota",
-                "selector_string": "Z,5692,AUM",
-                "host": "underdog.micro.umn.edu",
-                "port": 70
-              },
-              {
-                "item_type": "1",
-                "user_name": "Microcomputer News & Prices",
-                "selector_string": "Prices/",
-                "host": "pserver.bookstore.umn.edu",
-                "port": 70
-              },
-              {
-                "item_type": "1",
-                "user_name": "Courses, Schedules, Calendars",
-                "selector_string": "",
-                "host": "events.ais.umn.edu",
-                "port": 9120
-              },
-              {
-                "item_type": "1",
-                "user_name": "Student-Staff Directories",
-                "selector_string": "",
-                "host": "uinfo.ais.umn.edu",
-                "port": 70
-              },
-              {
-                "item_type": "1",
-                "user_name": "Departmental Publications",
-                "selector_string": "Stuff:DP:",
-                "real_path": "Stuff/DP/",
-                "host": "test.kopher.lol",
-                "port": 70
-              }
-            ]
-        """.trimIndent()
-
         val parser = SelectorStringParser(directoryListingJson)
         val result = parser.parse("\r\n")
 
