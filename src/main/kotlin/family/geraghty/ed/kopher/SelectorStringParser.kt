@@ -43,7 +43,7 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
     }
 
     private fun outputTextFile(dirEntity: DirEntity): String {
-        return FileReader(dirEntity.real_path!!).readText()
+        return FileReader(baseDirectory + dirEntity.real_path!!).readText()
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
