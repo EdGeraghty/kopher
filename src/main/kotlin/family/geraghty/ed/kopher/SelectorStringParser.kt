@@ -25,13 +25,16 @@ class SelectorStringParser (private val directoryListingJson: String) {
         throw Exception("To be implemented")
     }
 
-    private fun listWhatYouHave(): String {
+    private fun deserializeToDirEntities(): List<DirEntity> {
         val mapper = jacksonObjectMapper()
-        val dirEntitiesList: List<DirEntity> = mapper.readValue(directoryListingJson)
+        return mapper.readValue(directoryListingJson)
+    }
+
+    private fun listWhatYouHave(): String {
 
         var returnVar = ""
 
-        for (dirEntity in dirEntitiesList) {
+        for (dirEntity in deserializeToDirEntities()) {
             returnVar += dirEntity.toString()
             returnVar += "\r\n"
         }
