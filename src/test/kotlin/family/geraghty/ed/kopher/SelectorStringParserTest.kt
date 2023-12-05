@@ -117,4 +117,26 @@ class SelectorStringParserTest {
             result
         )
     }
+
+    /**
+     *
+     */
+    @Test
+    fun `Retrieve the 'About Us' text file`() {
+        val parser = SelectorStringParser(directoryListingJson)
+        val selectorString = "Stuff:About us"
+
+        val result = parser.parse(selectorString)
+
+        assertEquals(
+            """
+                WE ARE ANOMALOUS
+                WE ARE A REGION
+                FORGIVE AND FORGET
+                EXPECTO PATRONUM
+                .
+            """.trimIndent(),
+            result
+        )
+    }
 }
