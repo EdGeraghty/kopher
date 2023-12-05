@@ -20,20 +20,23 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             throw Exception("The Selector string should be no longer than 255 characters.")
         }
 
+        var output = ""
+
         if (selectorString == "\r\n") {
-            return listWhatYouHave()
+            output = listWhatYouHave()
+        }
+        else {
+            val selector = selectorString.substringBefore("\t")
+            val dirEntity = deserializeToDirEntities().first { it.selector_string == selector }
+
+            when (dirEntity.item_type) {
+                '0' -> output = outputTextFile(dirEntity)
+            }
         }
 
-        val selector = selectorString.substringBefore("\t")
-
-        val dirEntity = deserializeToDirEntities().first { it.selector_string == selector }
-
-        if (dirEntity.real_path.isNullOrEmpty()) {
-            throw Exception("Server cannot find the specified file")
-        }
-
-        when (dirEntity.item_type){
-             '0' -> outputTextFile(dirEntity)
+        if (output.isNotEmpty()) {
+            return "$output\r\n" +
+                   "."
         }
 
         throw Exception("To be implemented")
@@ -57,8 +60,6 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             returnVar += "\r\n"
         }
 
-        returnVar += "."
-
-        return returnVar
+        return returnVar.removeSuffix("\r\n") //That's pretty hacky.
     }
 }
