@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
 import java.io.FileReader
 
-class SelectorStringParser (private val directoryListingJson: String) {
+class SelectorStringParser (private val baseDirectory: String, private val directoryListingJson: String) {
     fun parse(selectorString: String) : String {
         return try {
             parseWithThrows(selectorString)
