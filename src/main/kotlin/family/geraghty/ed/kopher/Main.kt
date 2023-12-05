@@ -8,6 +8,8 @@ fun main() {
 
     while (true) {
         val client = server.accept()
-        thread { ClientHandler(client, "data/").run() }
+        val baseDirectory = "data"
+
+        thread { ClientHandler(client, baseDirectory).run() }
     }
 }
