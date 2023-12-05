@@ -3,6 +3,7 @@ package family.geraghty.ed.kopher
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
+import java.io.FileReader
 
 class SelectorStringParser (private val directoryListingJson: String) {
     fun parse(selectorString: String) : String {
@@ -22,7 +23,24 @@ class SelectorStringParser (private val directoryListingJson: String) {
         if (selectorString == "\r\n") {
             return listWhatYouHave()
         }
+
+        val selector = selectorString.substringBefore("\t")
+
+        val dirEntity = deserializeToDirEntities().first { it.selector_string == selector }
+
+        if (dirEntity.real_path.isNullOrEmpty()) {
+            throw Exception("Server cannot find the specified file")
+        }
+
+        when (dirEntity.item_type){
+             '0' -> outputTextFile(dirEntity)
+        }
+
         throw Exception("To be implemented")
+    }
+
+    private fun outputTextFile(dirEntity: DirEntity): String {
+        return FileReader(dirEntity.real_path!!).readText()
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
