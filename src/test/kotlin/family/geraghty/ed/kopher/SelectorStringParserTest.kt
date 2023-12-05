@@ -53,6 +53,8 @@ class SelectorStringParserTest {
         ]
     """.trimIndent()
 
+    private var baseDir = "src/test/resources/"
+
     /**
      * Test adapted from https://datatracker.ietf.org/doc/html/rfc1436#section-2
      *
@@ -76,7 +78,7 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Sends an empty line meaning list what you have`() {
-        val parser = SelectorStringParser("src/test/resources", directoryListingJson)
+        val parser = SelectorStringParser(baseDir, directoryListingJson)
         val result = parser.parse("\r\n")
 
         assertEquals(
@@ -102,7 +104,7 @@ class SelectorStringParserTest {
      */
     @Test
     fun `The Selector string should be no longer than 255 characters`() {
-        val parser = SelectorStringParser("src/test/resources", directoryListingJson)
+        val parser = SelectorStringParser(baseDir, directoryListingJson)
         val randomStringWhichIsTooLong =
             (1..256).map{
                 (0..1).random()
@@ -123,7 +125,7 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Retrieve the 'About Us' text file`() {
-        val parser = SelectorStringParser("src/test/resources", directoryListingJson)
+        val parser = SelectorStringParser(baseDir, directoryListingJson)
         val selectorString = "Stuff:About us"
 
         val result = parser.parse(selectorString)
