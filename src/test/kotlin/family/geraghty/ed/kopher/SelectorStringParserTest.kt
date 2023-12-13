@@ -137,7 +137,9 @@ class SelectorStringParserTest() {
                 FORGIVE AND FORGET
                 EXPECTO PATRONUM
                 .
-            """.trimIndent(),
+            """
+            .trimIndent()
+            .replace(Regex("\\r\\n|\\r|\\n"), "\r\n"),
             result
         )
     }
