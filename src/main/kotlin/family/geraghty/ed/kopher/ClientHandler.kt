@@ -21,6 +21,6 @@ class ClientHandler(private val client: Socket, private val baseDirectory: Strin
     }
 
     private fun write(message: String) {
-        writer.write((message + '\n').toByteArray(Charset.defaultCharset()))
+        writer.write((message).toByteArray(Charset.defaultCharset()))
     }
 }
