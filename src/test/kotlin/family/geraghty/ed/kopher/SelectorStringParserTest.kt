@@ -121,7 +121,7 @@ class SelectorStringParserTest {
     }
 
     /**
-     *
+     * Retrieve and check the content of the `About us` by passing its Selector: `Stuff:About us`
      */
     @Test
     fun `Retrieve the 'About Us' text file`() {
