@@ -30,6 +30,7 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
 
             when (dirEntity.itemType) {
                 '0' -> output = outputTextFile(dirEntity) + "." // output ends with a new line
+                '9', '5' -> output = outputBinaryFile(dirEntity) // No trailing '.'
             }
         }
 
@@ -52,6 +53,10 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             }
 
         return returnVal
+    }
+
+    private fun outputBinaryFile(dirEntity: DirEntity): String {
+        return FileReader(baseDirectory + dirEntity.realPath!!).readText()
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
