@@ -160,7 +160,7 @@ class SelectorStringParserTest {
                 EXPECTO PATRONUM
                 .
             """,
-            actual
+            actual,
         )
     }
 }
