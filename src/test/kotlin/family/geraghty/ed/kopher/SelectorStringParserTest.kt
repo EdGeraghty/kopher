@@ -6,7 +6,7 @@ class SelectorStringParserTest {
     private val directoryListingJson = """
         [
           {
-            "itemType": "0",
+            "itemType": 0,
             "userName": "About internet Gopher",
             "selectorString": "Stuff:About us",
             "realPath": "Stuff/About us",
@@ -14,7 +14,7 @@ class SelectorStringParserTest {
             "port": 70
           },
           {
-            "itemType": "0",
+            "itemType": 0,
             "userName": "Dot Test",
             "selectorString": "Stuff:Dot Test",
             "realPath": "Stuff/Dot Test",
@@ -22,35 +22,35 @@ class SelectorStringParserTest {
             "port": 70
           },
           {
-            "itemType": "1",
+            "itemType": 1,
             "userName": "Around University of Minnesota",
             "selectorString": "Z,5692,AUM",
             "host": "underdog.micro.umn.edu",
             "port": 70
           },
           {
-            "itemType": "1",
+            "itemType": 1,
             "userName": "Microcomputer News & Prices",
             "selectorString": "Prices/",
             "host": "pserver.bookstore.umn.edu",
             "port": 70
           },
           {
-            "itemType": "1",
+            "itemType": 1,
             "userName": "Courses, Schedules, Calendars",
             "selectorString": "",
             "host": "events.ais.umn.edu",
             "port": 9120
           },
           {
-            "itemType": "1",
+            "itemType": 1,
             "userName": "Student-Staff Directories",
             "selectorString": "",
             "host": "uinfo.ais.umn.edu",
             "port": 70
           },
           {
-            "itemType": "1",
+            "itemType": 1,
             "userName": "Departmental Publications",
             "selectorString": "Stuff:DP:",
             "realPath": "Stuff/DP/",
