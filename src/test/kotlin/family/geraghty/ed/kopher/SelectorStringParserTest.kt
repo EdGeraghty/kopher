@@ -97,11 +97,7 @@ class SelectorStringParserTest {
      *
      *    Server: {Sends a series of lines, each ending with CR LF}
      *    0About internet Gopher  Stuff:About us  test.kopher.lol   70
-     *    1Around University of Minnesota Z,5692,AUM  underdog.micro.umn.edu   70
-     *    1Microcomputer News & Prices    Prices/    pserver.bookstore.umn.edu  70
-     *    1Courses, Schedules, Calendars      events.ais.umn.edu  9120
-     *    1Student-Staff Directories      uinfo.ais.umn.edu   70
-     *    1Departmental Publications  Stuff:DP:   test.kopher.lol   70
+     *                      {.....etc.....}
      *    . {Period on a line by itself}
      */
     @Test
