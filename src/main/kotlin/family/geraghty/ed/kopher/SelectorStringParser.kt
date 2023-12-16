@@ -35,17 +35,24 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
         }
 
         if (output.isNotEmpty()) {
-            return "$output\r\n" +
-                   "."
+            return "$output." // output ends with a new line
         }
 
         throw Exception("To be implemented")
     }
 
     private fun outputTextFile(dirEntity: DirEntity): String {
-        return FileReader(baseDirectory + dirEntity.real_path!!)
-                    .readText()
-                    .replace(Regex("\\r\\n|\\r|\\n"), "\r\n")
+        var returnVal = ""
+
+        FileReader(baseDirectory + dirEntity.real_path!!)
+            .forEachLine {
+                if (it.startsWith(".")) {
+                    returnVal += "."
+                }
+                returnVal += "${it}\r\n"
+            }
+
+        return returnVal
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
@@ -62,6 +69,6 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             returnVar += "\r\n"
         }
 
-        return returnVar.removeSuffix("\r\n") //That's pretty hacky.
+        return returnVar
     }
 }

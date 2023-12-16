@@ -14,6 +14,14 @@ class SelectorStringParserTest {
             "port": 70
           },
           {
+            "item_type": "0",
+            "user_name": "Dot Test",
+            "selector_string": "Stuff:Dot Test",
+            "real_path": "Stuff/Dot Test",
+            "host": "test.kopher.lol",
+            "port": 70
+          },
+          {
             "item_type": "1",
             "user_name": "Around University of Minnesota",
             "selector_string": "Z,5692,AUM",
@@ -56,7 +64,7 @@ class SelectorStringParserTest {
 
     /**
      * Overridden assertEquals which takes any [expected] String, trims indents, and enforces `\r\n` line breaks. It
-     * then compares against [actual] using `kotlin.test.assertEquals`, with an optional [message] on failure.
+     * then compares against [actual] using `kotlin.test.assertEquals`, with an optional [message].
      */
     private fun assertEquals(
         expected: String,
@@ -99,17 +107,18 @@ class SelectorStringParserTest {
     @Test
     fun `Sends an empty line meaning list what you have`() {
         val parser = SelectorStringParser(baseDir, directoryListingJson)
-        val result = parser.parse("\r\n")
+        val actual = parser.parse("\r\n")
 
-        assertEquals(
+        assertEquals( //Note we're using an escaped string here, as we need to test for tabs
             "0About internet Gopher\tStuff:About us\ttest.kopher.lol\t70\r\n" +
+            "0Dot Test\tStuff:Dot Test\ttest.kopher.lol\t70\r\n" +
             "1Around University of Minnesota\tZ,5692,AUM\tunderdog.micro.umn.edu\t70\r\n" +
             "1Microcomputer News & Prices\tPrices/\tpserver.bookstore.umn.edu\t70\r\n" +
             "1Courses, Schedules, Calendars\t\tevents.ais.umn.edu\t9120\r\n" +
             "1Student-Staff Directories\t\tuinfo.ais.umn.edu\t70\r\n" +
             "1Departmental Publications\tStuff:DP:\ttest.kopher.lol\t70\r\n" +
             ".",
-            result
+            actual,
         )
     }
 
@@ -138,7 +147,7 @@ class SelectorStringParserTest {
                 3The Selector string should be no longer than 255 characters.
                 .
             """,
-            actual
+            actual,
         )
     }
 
@@ -160,7 +169,27 @@ class SelectorStringParserTest {
                 EXPECTO PATRONUM
                 .
             """,
-            actual
+            actual,
+        )
+    }
+
+    /**
+     * Lines beginning with periods must be prepended with an extra period to ensure that the transmission is not
+     * terminated early.
+     */
+    @Test
+    fun `Lines beginning with periods must be prepended with an extra period`() {
+        val parser = SelectorStringParser(baseDir, directoryListingJson)
+        val selectorString = "Stuff:Dot Test"
+
+        val actual = parser.parse(selectorString)
+
+        assertEquals(
+            """
+                ....Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn
+                .
+            """,
+            actual,
         )
     }
 }
