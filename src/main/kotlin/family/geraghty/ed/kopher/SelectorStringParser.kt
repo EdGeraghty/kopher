@@ -42,9 +42,17 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
     }
 
     private fun outputTextFile(dirEntity: DirEntity): String {
-        return FileReader(baseDirectory + dirEntity.real_path!!)
-                    .readText()
-                    .replace(Regex("\\r\\n|\\r|\\n"), "\r\n")
+        var returnVal = ""
+
+        FileReader(baseDirectory + dirEntity.real_path!!)
+            .forEachLine {
+                if (it.startsWith(".")) {
+                    returnVal += "."
+                }
+                returnVal += "${it}\r\n"
+            }
+
+        return returnVal
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
