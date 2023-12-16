@@ -99,7 +99,7 @@ class SelectorStringParserTest {
     @Test
     fun `Sends an empty line meaning list what you have`() {
         val parser = SelectorStringParser(baseDir, directoryListingJson)
-        val result = parser.parse("\r\n")
+        val actual = parser.parse("\r\n")
 
         assertEquals( //Note we're using an escaped string here, as we need to test for tabs
             "0About internet Gopher\tStuff:About us\ttest.kopher.lol\t70\r\n" +
@@ -109,7 +109,7 @@ class SelectorStringParserTest {
             "1Student-Staff Directories\t\tuinfo.ais.umn.edu\t70\r\n" +
             "1Departmental Publications\tStuff:DP:\ttest.kopher.lol\t70\r\n" +
             ".",
-            result,
+            actual,
         )
     }
 
