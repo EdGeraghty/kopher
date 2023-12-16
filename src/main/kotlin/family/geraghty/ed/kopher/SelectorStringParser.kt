@@ -29,12 +29,12 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             val dirEntity = deserializeToDirEntities().first { it.selectorString == selector }
 
             when (dirEntity.itemType) {
-                '0' -> output = outputTextFile(dirEntity)
+                '0' -> output = outputTextFile(dirEntity) + "." // output ends with a new line
             }
         }
 
         if (output.isNotEmpty()) {
-            return "$output." // output ends with a new line
+            return output
         }
 
         throw Exception("To be implemented")
@@ -68,6 +68,6 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             returnVar += "\r\n"
         }
 
-        return returnVar
+        return "${returnVar}."
     }
 }
