@@ -59,7 +59,6 @@ class SelectorStringParserTest {
           }
         ]
     """
-
     private var baseDir = "src/test/resources/"
     private val parser = SelectorStringParser(baseDir, directoryListingJson)
 
@@ -108,8 +107,7 @@ class SelectorStringParserTest {
     @Test
     fun `Sends an empty line meaning list what you have`() {
         val actual = parser.parse("\r\n")
-
-        assertEquals( //Note we're using an escaped string here, as we need to test for tabs
+        val expected =
             "0About internet Gopher\tStuff:About us\ttest.kopher.lol\t70\r\n" +
             "0Dot Test\tStuff:Dot Test\ttest.kopher.lol\t70\r\n" +
             "1Around University of Minnesota\tZ,5692,AUM\tunderdog.micro.umn.edu\t70\r\n" +
@@ -117,7 +115,10 @@ class SelectorStringParserTest {
             "1Courses, Schedules, Calendars\t\tevents.ais.umn.edu\t9120\r\n" +
             "1Student-Staff Directories\t\tuinfo.ais.umn.edu\t70\r\n" +
             "1Departmental Publications\tStuff:DP:\ttest.kopher.lol\t70\r\n" +
-            ".",
+            "."
+
+        assertEquals( //Note we're using an escaped string here, as we need to test for tabs
+            expected,
             actual,
         )
     }
@@ -138,14 +139,15 @@ class SelectorStringParserTest {
                 (0..1).random()
             }
             .joinToString("")
-
         val actual = parser.parse(randomStringWhichIsTooLong)
-
-        assertEquals(
+        val expected =
             """
                 3The Selector string should be no longer than 255 characters.
                 .
-            """,
+            """
+
+        assertEquals(
+            expected,
             actual,
         )
     }
@@ -156,17 +158,18 @@ class SelectorStringParserTest {
     @Test
     fun `Retrieve the 'About Us' text file`() {
         val selectorString = "Stuff:About us"
-
         val actual = parser.parse(selectorString)
-
-        assertEquals(
+        val expected =
             """
                 WE ARE ANOMALOUS
                 WE ARE A REGION
                 FORGIVE AND FORGET
                 EXPECTO PATRONUM
                 .
-            """,
+            """
+
+        assertEquals(
+            expected,
             actual,
         )
     }
@@ -178,14 +181,15 @@ class SelectorStringParserTest {
     @Test
     fun `Lines beginning with periods must be prepended with an extra period`() {
         val selectorString = "Stuff:Dot Test"
-
         val actual = parser.parse(selectorString)
-
-        assertEquals(
+        val expected =
             """
                 ....Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn
                 .
-            """,
+            """
+
+        assertEquals(
+            expected,
             actual,
         )
     }
