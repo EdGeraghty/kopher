@@ -195,6 +195,8 @@ class SelectorStringParserTest {
      *
      * C: Sends Selector String.
      * S: Sends a binary file and closes connection when done.
+     *
+     * Random binary generated on https://onlinefiletools.com/generate-random-binary-file
      */
     @Test
     fun `Binary file Transaction (Type 9 or 5 item) sends a binary file`() {
