@@ -208,7 +208,7 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Binary file Transaction (Type 9 or 5 item) sends a binary file`() {
-        val selectorString = ""
+        val selectorString = "Stuff/random bin"
         val actual = parser.parse(selectorString)
         val expected =
             """
