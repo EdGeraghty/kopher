@@ -2,7 +2,6 @@ package family.geraghty.ed.kopher
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import java.io.File
 import java.io.FileReader
 
 class SelectorStringParser (private val baseDirectory: String, private val directoryListingJson: String) {
