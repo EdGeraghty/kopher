@@ -109,7 +109,7 @@ class SelectorStringParserTest {
             "1Student-Staff Directories\t\tuinfo.ais.umn.edu\t70\r\n" +
             "1Departmental Publications\tStuff:DP:\ttest.kopher.lol\t70\r\n" +
             ".",
-            result
+            result,
         )
     }
 
