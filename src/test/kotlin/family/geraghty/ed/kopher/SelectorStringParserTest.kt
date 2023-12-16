@@ -56,6 +56,27 @@ class SelectorStringParserTest {
     private var baseDir = "src/test/resources/"
 
     /**
+     * Overridden assertEquals which takes any [expected] String, trims indents, and enforces `\r\n` line breaks. It
+     * then compares against [actual] using `kotlin.test.assertEquals`, with an optional [message] on failure.
+     */
+    private fun assertEquals(
+        expected: String,
+        actual: Any,
+        message: String? = null,
+    ) {
+        return kotlin.test.assertEquals(
+            expected
+                .trimIndent()
+                .replace(
+                    Regex("\\r\\n|\\r|\\n"),
+                    "\r\n",
+                ),
+            actual,
+            message,
+        )
+    }
+
+    /**
      * Test adapted from https://datatracker.ietf.org/doc/html/rfc1436#section-2
      *
      *    Below is a simple example of a client/server interaction; more
@@ -137,9 +158,7 @@ class SelectorStringParserTest {
                 FORGIVE AND FORGET
                 EXPECTO PATRONUM
                 .
-            """
-            .trimIndent()
-            .replace(Regex("\\r\\n|\\r|\\n"), "\r\n"),
+            """,
             result
         )
     }
