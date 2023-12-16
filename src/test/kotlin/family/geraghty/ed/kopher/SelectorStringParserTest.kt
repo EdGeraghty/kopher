@@ -172,4 +172,24 @@ class SelectorStringParserTest {
             actual,
         )
     }
+
+    /**
+     * Lines beginning with periods must be prepended with an extra period to ensure that the transmission is not
+     * terminated early.
+     */
+    @Test
+    fun `Lines beginning with periods must be prepended with an extra period`() {
+        val parser = SelectorStringParser(baseDir, directoryListingJson)
+        val selectorString = "Stuff:Dot Test"
+
+        val actual = parser.parse(selectorString)
+
+        assertEquals(
+            """
+                ....Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn
+                .
+            """,
+            actual,
+        )
+    }
 }
