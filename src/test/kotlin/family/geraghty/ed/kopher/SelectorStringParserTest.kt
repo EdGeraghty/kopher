@@ -189,4 +189,24 @@ class SelectorStringParserTest {
             actual,
         )
     }
+
+    /**
+     * Binary file Transaction (Type 9 or 5 item)
+     *
+     * C: Sends Selector String.
+     * S: Sends a binary file and closes connection when done.
+     */
+    @Test
+    fun `Binary file Transaction (Type 9 or 5 item) sends a binary file`() {
+        val selectorString = ""
+        val actual = parser.parse(selectorString)
+        val expected =
+            """
+            """
+
+        assertEquals(
+            expected,
+            actual,
+        )
+    }
 }
