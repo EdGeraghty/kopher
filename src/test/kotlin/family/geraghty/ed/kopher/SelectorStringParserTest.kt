@@ -131,14 +131,14 @@ class SelectorStringParserTest {
             }
             .joinToString("")
 
-        val result = parser.parse(randomStringWhichIsTooLong)
+        val actual = parser.parse(randomStringWhichIsTooLong)
 
         assertEquals(
             """
                 3The Selector string should be no longer than 255 characters.
                 .
             """,
-            result
+            actual
         )
     }
 
@@ -150,7 +150,7 @@ class SelectorStringParserTest {
         val parser = SelectorStringParser(baseDir, directoryListingJson)
         val selectorString = "Stuff:About us"
 
-        val result = parser.parse(selectorString)
+        val actual = parser.parse(selectorString)
 
         assertEquals(
             """
@@ -160,7 +160,7 @@ class SelectorStringParserTest {
                 EXPECTO PATRONUM
                 .
             """,
-            result
+            actual
         )
     }
 }
