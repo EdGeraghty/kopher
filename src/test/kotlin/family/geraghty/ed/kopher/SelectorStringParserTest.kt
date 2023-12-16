@@ -101,7 +101,7 @@ class SelectorStringParserTest {
         val parser = SelectorStringParser(baseDir, directoryListingJson)
         val result = parser.parse("\r\n")
 
-        assertEquals(
+        assertEquals( //Note we're using an escaped string here, as we need to test for tabs
             "0About internet Gopher\tStuff:About us\ttest.kopher.lol\t70\r\n" +
             "1Around University of Minnesota\tZ,5692,AUM\tunderdog.micro.umn.edu\t70\r\n" +
             "1Microcomputer News & Prices\tPrices/\tpserver.bookstore.umn.edu\t70\r\n" +
