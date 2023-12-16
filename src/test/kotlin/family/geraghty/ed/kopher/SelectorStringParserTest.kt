@@ -103,7 +103,7 @@ class SelectorStringParserTest {
     @Test
     fun `Sends an empty line meaning list what you have`() {
         val actual = parser.parse("\r\n")
-        val expected =
+        val expected = //Note we're using an escaped string here, as we need to test for tabs
             "0About internet Gopher\tStuff:About us\ttest.kopher.lol\t70\r\n" +
             "0Dot Test\tStuff:Dot Test\ttest.kopher.lol\t70\r\n" +
             "1Around University of Minnesota\tZ,5692,AUM\tunderdog.micro.umn.edu\t70\r\n" +
@@ -113,7 +113,7 @@ class SelectorStringParserTest {
             "1Departmental Publications\tStuff:DP:\ttest.kopher.lol\t70\r\n" +
             "."
 
-        assertEquals( //Note we're using an escaped string here, as we need to test for tabs
+        assertEquals(
             expected,
             actual,
         )
