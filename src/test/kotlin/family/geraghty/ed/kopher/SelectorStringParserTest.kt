@@ -22,6 +22,14 @@ class SelectorStringParserTest {
             "port": 70
           },
           {
+            "itemType": 9,
+            "userName": "DL my random binary file!",
+            "selectorString":"Stuff/random bin",
+            "realPath": "Stuff/output-onlinefiletools.bin",
+            "host": "test.kopher.lol",
+            "port": 70
+          },
+          {
             "itemType": 1,
             "userName": "Around University of Minnesota",
             "selectorString": "Z,5692,AUM",
