@@ -51,7 +51,7 @@ class SelectorStringParserTest {
             "port": 70
           }
         ]
-    """.trimIndent()
+    """
 
     private var baseDir = "src/test/resources/"
 
