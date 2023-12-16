@@ -1,6 +1,7 @@
 package family.geraghty.ed.kopher
 
 import org.junit.jupiter.api.Test
+import java.io.FileReader
 
 class SelectorStringParserTest {
     private val directoryListingJson = """
@@ -211,13 +212,7 @@ class SelectorStringParserTest {
     fun `Binary file Transaction (Type 9 or 5 item) sends a binary file`() {
         val selectorString = "Stuff/random bin"
         val actual = parser.parse(selectorString)
-        val expected =
-            """
-                0�3J�h�g@h}lS[WuF1�
-                ���k��cEͤ�9a�ll���aQ
-                �r��V�)�Cy��9���}����[���;�����${'$'}�`���
-                ����Se�s��A��6I�>ԃ���1tψ ��ى�A�=F�_�s���C-�{&��R{����oá��^a|� g���=�V�(��*���E�oJ���;�${'$'}(+/���c�� k�;{��(����p7�g���:BP��WDB�����N��E��
-            """
+        val expected = FileReader("src/test/resources/Stuff/output-onlinefiletools.bin").readText()
 
         assertEquals(
             expected,
