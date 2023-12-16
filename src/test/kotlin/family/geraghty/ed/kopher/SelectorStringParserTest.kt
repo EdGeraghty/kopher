@@ -61,6 +61,7 @@ class SelectorStringParserTest {
     """
 
     private var baseDir = "src/test/resources/"
+    private val parser = SelectorStringParser(baseDir, directoryListingJson)
 
     /**
      * Overridden assertEquals which takes any [expected] String, trims indents, and enforces `\r\n` line breaks. It
@@ -106,7 +107,6 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Sends an empty line meaning list what you have`() {
-        val parser = SelectorStringParser(baseDir, directoryListingJson)
         val actual = parser.parse("\r\n")
 
         assertEquals( //Note we're using an escaped string here, as we need to test for tabs
@@ -133,7 +133,6 @@ class SelectorStringParserTest {
      */
     @Test
     fun `The Selector string should be no longer than 255 characters`() {
-        val parser = SelectorStringParser(baseDir, directoryListingJson)
         val randomStringWhichIsTooLong =
             (1..256).map{
                 (0..1).random()
@@ -156,7 +155,6 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Retrieve the 'About Us' text file`() {
-        val parser = SelectorStringParser(baseDir, directoryListingJson)
         val selectorString = "Stuff:About us"
 
         val actual = parser.parse(selectorString)
@@ -179,7 +177,6 @@ class SelectorStringParserTest {
      */
     @Test
     fun `Lines beginning with periods must be prepended with an extra period`() {
-        val parser = SelectorStringParser(baseDir, directoryListingJson)
         val selectorString = "Stuff:Dot Test"
 
         val actual = parser.parse(selectorString)
