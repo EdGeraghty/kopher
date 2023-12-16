@@ -3,7 +3,7 @@ package family.geraghty.ed.kopher
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class SelectorStringParserTest() {
+class SelectorStringParserTest {
     private val directoryListingJson = """
         [
           {
