@@ -138,7 +138,7 @@ class SelectorStringParserTest {
                 3The Selector string should be no longer than 255 characters.
                 .
             """,
-            actual
+            actual,
         )
     }
 
