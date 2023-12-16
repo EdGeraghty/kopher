@@ -6,54 +6,54 @@ class SelectorStringParserTest {
     private val directoryListingJson = """
         [
           {
-            "item_type": "0",
-            "user_name": "About internet Gopher",
-            "selector_string": "Stuff:About us",
-            "real_path": "Stuff/About us",
+            "itemType": "0",
+            "userName": "About internet Gopher",
+            "selectorString": "Stuff:About us",
+            "realPath": "Stuff/About us",
             "host": "test.kopher.lol",
             "port": 70
           },
           {
-            "item_type": "0",
-            "user_name": "Dot Test",
-            "selector_string": "Stuff:Dot Test",
-            "real_path": "Stuff/Dot Test",
+            "itemType": "0",
+            "userName": "Dot Test",
+            "selectorString": "Stuff:Dot Test",
+            "realPath": "Stuff/Dot Test",
             "host": "test.kopher.lol",
             "port": 70
           },
           {
-            "item_type": "1",
-            "user_name": "Around University of Minnesota",
-            "selector_string": "Z,5692,AUM",
+            "itemType": "1",
+            "userName": "Around University of Minnesota",
+            "selectorString": "Z,5692,AUM",
             "host": "underdog.micro.umn.edu",
             "port": 70
           },
           {
-            "item_type": "1",
-            "user_name": "Microcomputer News & Prices",
-            "selector_string": "Prices/",
+            "itemType": "1",
+            "userName": "Microcomputer News & Prices",
+            "selectorString": "Prices/",
             "host": "pserver.bookstore.umn.edu",
             "port": 70
           },
           {
-            "item_type": "1",
-            "user_name": "Courses, Schedules, Calendars",
-            "selector_string": "",
+            "itemType": "1",
+            "userName": "Courses, Schedules, Calendars",
+            "selectorString": "",
             "host": "events.ais.umn.edu",
             "port": 9120
           },
           {
-            "item_type": "1",
-            "user_name": "Student-Staff Directories",
-            "selector_string": "",
+            "itemType": "1",
+            "userName": "Student-Staff Directories",
+            "selectorString": "",
             "host": "uinfo.ais.umn.edu",
             "port": 70
           },
           {
-            "item_type": "1",
-            "user_name": "Departmental Publications",
-            "selector_string": "Stuff:DP:",
-            "real_path": "Stuff/DP/",
+            "itemType": "1",
+            "userName": "Departmental Publications",
+            "selectorString": "Stuff:DP:",
+            "realPath": "Stuff/DP/",
             "host": "test.kopher.lol",
             "port": 70
           }

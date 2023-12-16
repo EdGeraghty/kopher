@@ -27,9 +27,9 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
         }
         else {
             val selector = selectorString.substringBefore("\t")
-            val dirEntity = deserializeToDirEntities().first { it.selector_string == selector }
+            val dirEntity = deserializeToDirEntities().first { it.selectorString == selector }
 
-            when (dirEntity.item_type) {
+            when (dirEntity.itemType) {
                 '0' -> output = outputTextFile(dirEntity)
             }
         }
@@ -44,7 +44,7 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
     private fun outputTextFile(dirEntity: DirEntity): String {
         var returnVal = ""
 
-        FileReader(baseDirectory + dirEntity.real_path!!)
+        FileReader(baseDirectory + dirEntity.realPath!!)
             .forEachLine {
                 if (it.startsWith(".")) {
                     returnVal += "."
