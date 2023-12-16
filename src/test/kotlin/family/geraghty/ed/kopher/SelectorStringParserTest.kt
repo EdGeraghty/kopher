@@ -56,7 +56,7 @@ class SelectorStringParserTest {
 
     /**
      * Overridden assertEquals which takes any [expected] String, trims indents, and enforces `\r\n` line breaks. It
-     * then compares against [actual] using `kotlin.test.assertEquals`, with an optional [message] on failure.
+     * then compares against [actual] using `kotlin.test.assertEquals`, with an optional [message].
      */
     private fun assertEquals(
         expected: String,
