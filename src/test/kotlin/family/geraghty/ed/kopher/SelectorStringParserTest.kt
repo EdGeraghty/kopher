@@ -14,6 +14,14 @@ class SelectorStringParserTest {
             "port": 70
           },
           {
+            "item_type": "0",
+            "user_name": "Dot Test",
+            "selector_string": "Stuff:Dot Test",
+            "real_path": "Stuff/Dot Test",
+            "host": "test.kopher.lol",
+            "port": 70
+          },
+          {
             "item_type": "1",
             "user_name": "Around University of Minnesota",
             "selector_string": "Z,5692,AUM",
