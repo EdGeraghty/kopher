@@ -1,7 +1,7 @@
 package family.geraghty.ed.kopher
 
 import org.junit.jupiter.api.Test
-import java.io.FileReader
+import java.io.File
 
 class SelectorStringParserTest {
     private val directoryListingJson = """
@@ -87,6 +87,22 @@ class SelectorStringParserTest {
                     Regex("\\r\\n|\\r|\\n"),
                     "\r\n",
                 ),
+            actual,
+            message,
+        )
+    }
+
+    /**
+     * Overridden assertEquals which takes any [expected] Byte Array and forces it to a `UTF-8` string. It then compares
+     *  against [actual] using `kotlin.test.assertEquals`, with an optional [message].
+     */
+    private fun assertEquals(
+        expected: ByteArray,
+        actual: String,
+        message: String? = null,
+    ) {
+        return kotlin.test.assertEquals(
+            expected.toString(Charsets.UTF_8),
             actual,
             message,
         )
@@ -212,7 +228,10 @@ class SelectorStringParserTest {
     fun `Binary file Transaction (Type 9 or 5 item) sends a binary file`() {
         val selectorString = "Stuff/random bin"
         val actual = parser.parse(selectorString)
-        val expected = FileReader("src/test/resources/Stuff/output-onlinefiletools.bin").readText()
+        val expected =
+            File("src/test/resources/Stuff/output-onlinefiletools.bin")
+                .inputStream()
+                .readBytes()
 
         assertEquals(
             expected,
