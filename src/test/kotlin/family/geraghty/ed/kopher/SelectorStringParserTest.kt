@@ -1,6 +1,7 @@
 package family.geraghty.ed.kopher
 
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class SelectorStringParserTest {
     private val directoryListingJson = """
@@ -18,6 +19,14 @@ class SelectorStringParserTest {
             "userName": "Dot Test",
             "selectorString": "Stuff:Dot Test",
             "realPath": "Stuff/Dot Test",
+            "host": "test.kopher.lol",
+            "port": 70
+          },
+          {
+            "itemType": "9",
+            "userName": "DL my random binary file!",
+            "selectorString":"Stuff/random bin",
+            "realPath": "Stuff/output-onlinefiletools.bin",
             "host": "test.kopher.lol",
             "port": 70
           },
@@ -84,6 +93,22 @@ class SelectorStringParserTest {
     }
 
     /**
+     * Overridden assertEquals which takes any [expected] Byte Array and forces it to a `UTF-8` string. It then compares
+     *  against [actual] using `kotlin.test.assertEquals`, with an optional [message].
+     */
+    private fun assertEquals(
+        expected: ByteArray,
+        actual: String,
+        message: String? = null,
+    ) {
+        return kotlin.test.assertEquals(
+            expected.toString(Charsets.UTF_8),
+            actual,
+            message,
+        )
+    }
+
+    /**
      * Test adapted from https://datatracker.ietf.org/doc/html/rfc1436#section-2
      *
      *    Below is a simple example of a client/server interaction; more
@@ -106,6 +131,7 @@ class SelectorStringParserTest {
         val expected = //Note we're using an escaped string here, as we need to test for tabs
             "0About internet Gopher\tStuff:About us\ttest.kopher.lol\t70\r\n" +
             "0Dot Test\tStuff:Dot Test\ttest.kopher.lol\t70\r\n" +
+            "9DL my random binary file!\tStuff/random bin\ttest.kopher.lol\t70\r\n" +
             "1Around University of Minnesota\tZ,5692,AUM\tunderdog.micro.umn.edu\t70\r\n" +
             "1Microcomputer News & Prices\tPrices/\tpserver.bookstore.umn.edu\t70\r\n" +
             "1Courses, Schedules, Calendars\t\tevents.ais.umn.edu\t9120\r\n" +
@@ -183,6 +209,29 @@ class SelectorStringParserTest {
                 ....Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn
                 .
             """
+
+        assertEquals(
+            expected,
+            actual,
+        )
+    }
+
+    /**
+     * Binary file Transaction (Type 9 or 5 item)
+     *
+     * C: Sends Selector String.
+     * S: Sends a binary file and closes connection when done.
+     *
+     * Random binary generated on https://onlinefiletools.com/generate-random-binary-file
+     */
+    @Test
+    fun `Binary file Transaction (Type 9 or 5 item) sends a binary file`() {
+        val selectorString = "Stuff/random bin"
+        val actual = parser.parse(selectorString)
+        val expected =
+            File("src/test/resources/Stuff/output-onlinefiletools.bin")
+                .inputStream()
+                .readBytes()
 
         assertEquals(
             expected,
