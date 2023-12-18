@@ -2,6 +2,7 @@ package family.geraghty.ed.kopher
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import java.io.File
 import java.io.FileReader
 
 class SelectorStringParser (private val baseDirectory: String, private val directoryListingJson: String) {
@@ -56,7 +57,10 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
     }
 
     private fun outputBinaryFile(dirEntity: DirEntity): String {
-        return FileReader(baseDirectory + dirEntity.realPath!!).readText()
+        return File(baseDirectory + dirEntity.realPath!!)
+                   .inputStream()
+                   .readBytes()
+                   .toString(Charsets.UTF_8)
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
