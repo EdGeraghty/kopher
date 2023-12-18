@@ -27,25 +27,40 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
         }
         else {
             val selector = selectorString.substringBefore("\t")
-            val dirEntity = deserializeToDirEntities().first { it.selector_string == selector }
+            val dirEntity = deserializeToDirEntities().first { it.selectorString == selector }
 
-            when (dirEntity.item_type) {
-                '0' -> output = outputTextFile(dirEntity)
+            when (dirEntity.itemType) {
+                '0' -> output = outputTextFile(dirEntity) + "." // output ends with a new line
+                '9', '5' -> output = outputBinaryFile(dirEntity) // No trailing '.'
             }
         }
 
         if (output.isNotEmpty()) {
-            return "$output\r\n" +
-                   "."
+            return output
         }
 
         throw Exception("To be implemented")
     }
 
     private fun outputTextFile(dirEntity: DirEntity): String {
-        return FileReader(baseDirectory + dirEntity.real_path!!)
-                    .readText()
-                    .replace(Regex("\\r\\n|\\r|\\n"), "\r\n")
+        var returnVal = ""
+
+        FileReader(baseDirectory + dirEntity.realPath!!)
+            .forEachLine {
+                if (it.startsWith(".")) {
+                    returnVal += "."
+                }
+                returnVal += "${it}\r\n"
+            }
+
+        return returnVal
+    }
+
+    private fun outputBinaryFile(dirEntity: DirEntity): String {
+        return File(baseDirectory + dirEntity.realPath!!)
+                   .inputStream()
+                   .readBytes()
+                   .toString(Charsets.UTF_8)
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
@@ -62,6 +77,6 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             returnVar += "\r\n"
         }
 
-        return returnVar.removeSuffix("\r\n") //That's pretty hacky.
+        return "${returnVar}."
     }
 }
