@@ -78,17 +78,17 @@ class SelectorStringParserTest {
     private fun assertEquals(
         expected: String,
         actual: Any,
-        message: String? = null,
+        message: String? = null
     ) {
         return kotlin.test.assertEquals(
             expected
                 .trimIndent()
                 .replace(
                     Regex("\\r\\n|\\r|\\n"),
-                    "\r\n",
+                    "\r\n"
                 ),
             actual,
-            message,
+            message
         )
     }
 
@@ -99,12 +99,12 @@ class SelectorStringParserTest {
     private fun assertEquals(
         expected: ByteArray,
         actual: String,
-        message: String? = null,
+        message: String? = null
     ) {
         return kotlin.test.assertEquals(
             expected.toString(Charsets.UTF_8),
             actual,
-            message,
+            message
         )
     }
 
@@ -128,20 +128,20 @@ class SelectorStringParserTest {
     @Test
     fun `Sends an empty line meaning list what you have`() {
         val actual = parser.parse("\r\n")
-        val expected = //Note we're using an escaped string here, as we need to test for tabs
+        val expected = // Note we're using an escaped string here, as we need to test for tabs
             "0About internet Gopher\tStuff:About us\ttest.kopher.lol\t70\r\n" +
-            "0Dot Test\tStuff:Dot Test\ttest.kopher.lol\t70\r\n" +
-            "9DL my random binary file!\tStuff/random bin\ttest.kopher.lol\t70\r\n" +
-            "1Around University of Minnesota\tZ,5692,AUM\tunderdog.micro.umn.edu\t70\r\n" +
-            "1Microcomputer News & Prices\tPrices/\tpserver.bookstore.umn.edu\t70\r\n" +
-            "1Courses, Schedules, Calendars\t\tevents.ais.umn.edu\t9120\r\n" +
-            "1Student-Staff Directories\t\tuinfo.ais.umn.edu\t70\r\n" +
-            "1Departmental Publications\tStuff:DP:\ttest.kopher.lol\t70\r\n" +
-            "."
+                "0Dot Test\tStuff:Dot Test\ttest.kopher.lol\t70\r\n" +
+                "9DL my random binary file!\tStuff/random bin\ttest.kopher.lol\t70\r\n" +
+                "1Around University of Minnesota\tZ,5692,AUM\tunderdog.micro.umn.edu\t70\r\n" +
+                "1Microcomputer News & Prices\tPrices/\tpserver.bookstore.umn.edu\t70\r\n" +
+                "1Courses, Schedules, Calendars\t\tevents.ais.umn.edu\t9120\r\n" +
+                "1Student-Staff Directories\t\tuinfo.ais.umn.edu\t70\r\n" +
+                "1Departmental Publications\tStuff:DP:\ttest.kopher.lol\t70\r\n" +
+                "."
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -157,10 +157,10 @@ class SelectorStringParserTest {
     @Test
     fun `The Selector string should be no longer than 255 characters`() {
         val randomStringWhichIsTooLong =
-            (1..256).map{
+            (1..256).map {
                 (0..1).random()
             }
-            .joinToString("")
+                .joinToString("")
         val actual = parser.parse(randomStringWhichIsTooLong)
         val expected =
             """
@@ -170,7 +170,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -192,7 +192,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -212,7 +212,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -235,7 +235,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 }
