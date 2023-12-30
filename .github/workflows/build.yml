@@ -41,6 +41,7 @@ jobs:
 
   snyk:
     runs-on: ubuntu-latest
+    needs: unit-tests
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for known vulnerabilities
@@ -57,6 +58,7 @@ jobs:
   
   sonar:
     runs-on: ubuntu-latest
+    needs: unit-tests
     steps:
       - uses: actions/checkout@v4
         with:
