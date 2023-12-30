@@ -88,7 +88,7 @@ class SelectorStringParserTest {
                     "\r\n"
                 ),
             actual,
-            message,
+            message
         )
     }
 
