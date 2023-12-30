@@ -16,7 +16,6 @@ jobs:
         uses: super-linter/super-linter@v5.7.2
         env:
           DEFAULT_BRANCH: main
-          DISABLE_ERRORS: true
           VALIDATE_KOTLIN: true
           VALIDATE_ALL_CODEBASE: true
           # To report GitHub Actions status checks
