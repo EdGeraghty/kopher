@@ -22,7 +22,7 @@ jobs:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  security:
+  snyk:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -38,7 +38,7 @@ jobs:
         with:
           sarif_file: snyk.sarif
   
-  build:
+  sonar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
