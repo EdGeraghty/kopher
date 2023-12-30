@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.22"
     id("org.sonarqube") version "4.4.1.3373"
+    jacoco
 }
 
 group = "family.geraghty.ed"
@@ -28,5 +29,17 @@ sonar {
         property("sonar.projectKey", "EdGeraghty_kopher")
         property("sonar.organization", "edgeraghty")
         property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+}
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
     }
 }
