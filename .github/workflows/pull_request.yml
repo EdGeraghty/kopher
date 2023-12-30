@@ -1,4 +1,4 @@
-name: Run our jobs
+name: Run PR-specific jobs
 on: pull_request
 jobs:
   lint:
@@ -12,8 +12,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Super-linter
+      - name: Run Super-linter against the whole codebase
         uses: super-linter/super-linter@v5.7.2
+        with:
+          cache: 'gradle'
         env:
           DEFAULT_BRANCH: main
           VALIDATE_KOTLIN: true
@@ -71,6 +73,8 @@ jobs:
         run: chmod +x gradlew
       - name: Test with Sonar
         run: ./gradlew assemble sonar --info
+      - name: Import code coverage to Sonar
+        run: gradle test jacocoTestReport sonarqube
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
