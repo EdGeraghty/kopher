@@ -78,14 +78,14 @@ class SelectorStringParserTest {
     private fun assertEquals(
         expected: String,
         actual: Any,
-        message: String? = null,
+        message: String? = null
     ) {
         return kotlin.test.assertEquals(
             expected
                 .trimIndent()
                 .replace(
                     Regex("\\r\\n|\\r|\\n"),
-                    "\r\n",
+                    "\r\n"
                 ),
             actual,
             message,
@@ -99,12 +99,12 @@ class SelectorStringParserTest {
     private fun assertEquals(
         expected: ByteArray,
         actual: String,
-        message: String? = null,
+        message: String? = null
     ) {
         return kotlin.test.assertEquals(
             expected.toString(Charsets.UTF_8),
             actual,
-            message,
+            message
         )
     }
 
@@ -141,7 +141,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -170,7 +170,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -192,7 +192,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -212,7 +212,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 
@@ -235,7 +235,7 @@ class SelectorStringParserTest {
 
         assertEquals(
             expected,
-            actual,
+            actual
         )
     }
 }
