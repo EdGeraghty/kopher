@@ -72,7 +72,7 @@ jobs:
       - name: Test with Sonar
         run: ./gradlew assemble sonar --info
       - name: Import code coverage to Sonar
-        run: gradle test jacocoTestReport sonarqube
+        run: gradle test jacocoTestReport sonar
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
