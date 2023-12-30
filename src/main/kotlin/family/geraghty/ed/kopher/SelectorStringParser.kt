@@ -24,8 +24,7 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
 
         if (selectorString == "\r\n") {
             output = listWhatYouHave()
-        }
-        else {
+        } else {
             val selector = selectorString.substringBefore("\t")
             val dirEntity = deserializeToDirEntities().first { it.selectorString == selector }
 
@@ -58,9 +57,9 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
 
     private fun outputBinaryFile(dirEntity: DirEntity): String {
         return File(baseDirectory + dirEntity.realPath!!)
-                   .inputStream()
-                   .readBytes()
-                   .toString(Charsets.UTF_8)
+            .inputStream()
+            .readBytes()
+            .toString(Charsets.UTF_8)
     }
 
     private fun deserializeToDirEntities(): List<DirEntity> {
