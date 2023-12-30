@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.20"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "family.geraghty.ed"
@@ -21,4 +22,11 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(21)
+}
+sonar {
+    properties {
+        property("sonar.projectKey", "EdGeraghty_kopher")
+        property("sonar.organization", "edgeraghty")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
