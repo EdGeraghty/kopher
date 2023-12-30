@@ -69,6 +69,8 @@ jobs:
           cache: 'gradle'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: build
+        run: ./gradlew build
       - name: Test with Sonar
         run: ./gradlew assemble sonar --info
       - name: Import code coverage to Sonar
