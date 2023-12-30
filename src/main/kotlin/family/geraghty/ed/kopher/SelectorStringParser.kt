@@ -5,17 +5,17 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
 import java.io.FileReader
 
-class SelectorStringParser (private val baseDirectory: String, private val directoryListingJson: String) {
-    fun parse(selectorString: String) : String {
+class SelectorStringParser(private val baseDirectory: String, private val directoryListingJson: String) {
+    fun parse(selectorString: String): String {
         return try {
             parseWithThrows(selectorString)
         } catch (e: Exception) {
             "3${e.message}\r\n" +
-            "."
+                "."
         }
     }
 
-    private fun parseWithThrows(selectorString: String) : String {
+    private fun parseWithThrows(selectorString: String): String {
         if (selectorString.length > 255) {
             throw Exception("The Selector string should be no longer than 255 characters.")
         }
@@ -69,7 +69,6 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
     }
 
     private fun listWhatYouHave(): String {
-
         var returnVar = ""
 
         for (dirEntity in deserializeToDirEntities()) {
@@ -77,6 +76,6 @@ class SelectorStringParser (private val baseDirectory: String, private val direc
             returnVar += "\r\n"
         }
 
-        return "${returnVar}."
+        return "$returnVar."
     }
 }
