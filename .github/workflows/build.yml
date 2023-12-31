@@ -29,7 +29,7 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@v3
       - name: Run snapshot action
-        uses: mikepenz/gradle-dependency-submission@{latest}
+        uses: mikepenz/gradle-dependency-submission@v0.9.1
 
   unit-tests:
     runs-on: ubuntu-latest
