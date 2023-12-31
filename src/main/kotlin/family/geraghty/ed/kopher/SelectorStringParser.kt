@@ -4,47 +4,68 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
 import java.io.FileReader
+import java.nio.file.Path
+import java.util.stream.Stream
+import kotlin.io.path.name
 
-class SelectorStringParser(private val baseDirectory: String, private val directoryListingJson: String) {
+class SelectorStringParser(dataDirectory: Stream<Path>) {
+    private val data = dataDirectory.toList()
+    private val dirEntities = deserializeToDirEntities()
+
+    /**
+     * Parse the [selectorString] and output the result.
+     *
+     * If an exception is thrown, output with the correct `ItemType`
+     */
     fun parse(selectorString: String): String {
         return try {
             parseWithThrows(selectorString)
         } catch (e: Exception) {
-            "3${e.message}\r\n" +
-                "."
+            "${ItemType.ERROR}${e.message}\r\n."
         }
     }
 
-    private fun parseWithThrows(selectorString: String): String {
-        if (selectorString.length > 255) {
+    private fun parseWithThrows(userSelectorString: String): String {
+        val selector = userSelectorString.substringBefore("\t")
+
+        if (selector.length > 255) {
             throw Exception("The Selector string should be no longer than 255 characters.")
         }
 
-        var output = ""
-
-        if (selectorString == "\r\n") {
-            output = listWhatYouHave()
+        return if (selector == "\r\n") {
+            listWhatYouHave()
         } else {
-            val selector = selectorString.substringBefore("\t")
-            val dirEntity = deserializeToDirEntities().first { it.selectorString == selector }
+            val dirEntity = dirEntities.first { it.selectorString == selector }
 
             when (dirEntity.itemType) {
-                '0' -> output = outputTextFile(dirEntity) + "." // output ends with a new line
-                '9', '5' -> output = outputBinaryFile(dirEntity) // No trailing '.'
+                ItemType.FILE -> outputTextFile(dirEntity)
+                ItemType.DOS_BINARY_ARCHIVE, ItemType.BINARY_FILE -> outputBinaryFile(dirEntity)
+                ItemType.DIRECTORY -> TODO()
+                ItemType.BINHEXED_MACINTOSH_FILE -> TODO()
+                ItemType.UNIX_UUENCODED_FILE -> TODO()
+                ItemType.TEXT_BASED_TELNET_SESSION -> TODO()
+                ItemType.TEXT_BASED_TN3270_SESSION -> TODO()
+                ItemType.GIF_FILE -> TODO()
+                ItemType.IMAGE -> TODO()
+                // Don't think I'll ever implement these
+                ItemType.CSO_BOOK_SERVER, ItemType.INDEX_SEARCH_SERVER, ItemType.REDUNDANT_SERVER -> TODO()
+                // Only here for completeness
+                ItemType.ERROR -> TODO()
             }
         }
-
-        if (output.isNotEmpty()) {
-            return output
-        }
-
-        throw Exception("To be implemented")
     }
 
+    /**
+     *
+     */
     private fun outputTextFile(dirEntity: DirEntity): String {
+        if (dirEntity.itemType != ItemType.FILE) { // In theory, we should never get here
+            throw Exception("$dirEntity is not a text file")
+        }
+
         var returnVal = ""
 
-        FileReader(baseDirectory + dirEntity.realPath!!)
+        FileReader(getFile(dirEntity))
             .forEachLine {
                 if (it.startsWith(".")) {
                     returnVal += "."
@@ -52,11 +73,14 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
                 returnVal += "${it}\r\n"
             }
 
-        return returnVal
+        return "$returnVal."
     }
 
+    private fun getFile(dirEntity: DirEntity): File =
+        data.first { it.endsWith(dirEntity.realPath!!) }.toFile()
+
     private fun outputBinaryFile(dirEntity: DirEntity): String {
-        return File(baseDirectory + dirEntity.realPath!!)
+        return getFile(dirEntity)
             .inputStream()
             .readBytes()
             .toString(Charsets.UTF_8)
@@ -64,16 +88,18 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
 
     private fun deserializeToDirEntities(): List<DirEntity> {
         val mapper = jacksonObjectMapper()
-        return mapper.readValue(directoryListingJson)
+        return mapper.readValue(
+            data.first { file ->
+                "listing.json" == file.name
+            }
+                .toFile()
+        )
     }
 
     private fun listWhatYouHave(): String {
         var returnVar = ""
 
-        for (dirEntity in deserializeToDirEntities()) {
-            returnVar += dirEntity.toString()
-            returnVar += "\r\n"
-        }
+        dirEntities.forEach { dirEntity -> returnVar += "$dirEntity\r\n" }
 
         return "$returnVar."
     }

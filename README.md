@@ -1,8 +1,10 @@
 # Kopher
 
-Kopher is a clean-room implementation of [The Gopher Protocol RFC](https://datatracker.ietf.org/doc/html/rfc1436)... in [Kotlin](https://kotlinlang.org/). (#YOLO)
+Kopher is a clean-room implementation of [The Gopher Protocol RFC](https://datatracker.ietf.org/doc/html/rfc1436)...
+in [Kotlin](https://kotlinlang.org/). (#YOLO)
 
-I am writing this purely as an excuse to learn the language and play with TDD. I do not ever expect anyone to use it.
+I am writing this purely as an excuse to learn the language and play with TDD (and, latterly, DevSecOps, CI/CD and
+GitHub workflows). I do not ever expect anyone to use it.
 
 There's a high likelihood I'll get bored and move onto something else before it gets to the stage of being particularly
 useful as an implementation.
