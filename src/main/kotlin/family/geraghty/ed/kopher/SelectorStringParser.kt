@@ -4,8 +4,14 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
 import java.io.FileReader
+import java.nio.file.Path
+import java.util.stream.Stream
+import kotlin.io.path.name
+import kotlin.io.path.pathString
 
-class SelectorStringParser(private val baseDirectory: String, private val directoryListingJson: String) {
+class SelectorStringParser(dataDirectory: Stream<Path>) {
+    private val data = dataDirectory.toList()
+    private val dirEntities = deserializeToDirEntities()
 
     /**
      * Parse the [selectorString] and output the result.
@@ -20,16 +26,17 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
         }
     }
 
-    private fun parseWithThrows(selectorString: String): String {
-        if (selectorString.length > 255) {
+    private fun parseWithThrows(userSelectorString: String): String {
+        val selector = userSelectorString.substringBefore("\t")
+
+        if (selector.length > 255) {
             throw Exception("The Selector string should be no longer than 255 characters.")
         }
 
         return if (selector == "\r\n") {
             listWhatYouHave()
         } else {
-            val selector = selectorString.substringBefore("\t")
-            val dirEntity = deserializeToDirEntities().first { it.selectorString == selector }
+            val dirEntity = dirEntities.first { it.selectorString == selector }
 
             when (dirEntity.itemType) {
                 ItemType.FILE -> outputTextFile(dirEntity)
@@ -59,7 +66,7 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
 
         var returnVal = ""
 
-        FileReader(baseDirectory + dirEntity.realPath!!)
+        FileReader(getFile(dirEntity))
             .forEachLine {
                 if (it.startsWith(".")) {
                     returnVal += "."
@@ -70,8 +77,11 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
         return "$returnVal."
     }
 
+    private fun getFile(dirEntity: DirEntity): File =
+        data.first { it.endsWith(dirEntity.realPath!!) }.toFile()
+
     private fun outputBinaryFile(dirEntity: DirEntity): String {
-        return File(baseDirectory + dirEntity.realPath!!)
+        return getFile(dirEntity)
             .inputStream()
             .readBytes()
             .toString(Charsets.UTF_8)
@@ -79,16 +89,18 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
 
     private fun deserializeToDirEntities(): List<DirEntity> {
         val mapper = jacksonObjectMapper()
-        return mapper.readValue(directoryListingJson)
+        return mapper.readValue(
+            data.first { file ->
+                "listing.json" == file.name
+            }
+                .toFile()
+        )
     }
 
     private fun listWhatYouHave(): String {
         var returnVar = ""
 
-        for (dirEntity in deserializeToDirEntities()) {
-            returnVar += dirEntity.toString()
-            returnVar += "\r\n"
-        }
+        dirEntities.forEach { dirEntity -> returnVar += "$dirEntity\r\n" }
 
         return "$returnVar."
     }
