@@ -1,6 +1,5 @@
 package family.geraghty.ed.kopher
 
-import java.io.File
 import java.io.OutputStream
 import java.net.Socket
 import java.nio.charset.Charset
