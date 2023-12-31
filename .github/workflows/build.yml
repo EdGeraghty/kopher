@@ -23,6 +23,7 @@ jobs:
 
   dependency-checks:
     runs-on: ubuntu-latest
+    needs: lint
     permissions: # The Dependency Submission API requires write permission
       contents: write
     steps:
