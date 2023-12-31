@@ -25,13 +25,13 @@ class SelectorStringParser(private val baseDirectory: String, private val direct
             throw Exception("The Selector string should be no longer than 255 characters.")
         }
 
-        if (selectorString == "\r\n") {
-            return listWhatYouHave()
+        return if (selector == "\r\n") {
+            listWhatYouHave()
         } else {
             val selector = selectorString.substringBefore("\t")
             val dirEntity = deserializeToDirEntities().first { it.selectorString == selector }
 
-            return when (dirEntity.itemType) {
+            when (dirEntity.itemType) {
                 ItemType.FILE -> outputTextFile(dirEntity)
                 ItemType.DOS_BINARY_ARCHIVE, ItemType.BINARY_FILE -> outputBinaryFile(dirEntity)
                 ItemType.DIRECTORY -> TODO()
