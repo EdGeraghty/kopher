@@ -21,6 +21,16 @@ jobs:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  dependency-checks:
+    runs-on: ubuntu-latest
+    permissions: # The Dependency Submission API requires write permission
+      contents: write
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+      - name: Run snapshot action
+        uses: mikepenz/gradle-dependency-submission@{latest}
+
   unit-tests:
     runs-on: ubuntu-latest
     needs: lint
