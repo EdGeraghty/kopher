@@ -7,7 +7,6 @@ import java.io.FileReader
 import java.nio.file.Path
 import java.util.stream.Stream
 import kotlin.io.path.name
-import kotlin.io.path.pathString
 
 class SelectorStringParser(dataDirectory: Stream<Path>) {
     private val data = dataDirectory.toList()
