@@ -15,7 +15,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.1")
 }
 
 tasks.test {
